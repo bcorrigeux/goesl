@@ -9,7 +9,6 @@ package goesl
 import (
 	"bufio"
 	"bytes"
-	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -208,7 +207,7 @@ func (c *SocketConnection) Handle() {
 			msg, err := newMessage(rbuf, true)
 			Debug("received message")
 			if err != nil {
-				Debug(err)
+				Debug("error instead of messge")
 				c.err <- err
 				done <- true
 				break
