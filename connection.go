@@ -212,7 +212,7 @@ func (c *SocketConnection) Handle() {
 				done <- true
 				break
 			}
-
+			Debug("before forward")
 			c.m <- msg
 			Debug("forwarded message")
 		}
