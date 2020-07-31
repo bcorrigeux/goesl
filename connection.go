@@ -209,7 +209,7 @@ func (c *SocketConnection) Handle() {
 	go func() {
 		for {
 			msg, err := newMessage(rbuf, true)
-
+			Debug("received message")
 			if err != nil {
 				c.err <- err
 				done <- true
