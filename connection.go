@@ -217,6 +217,7 @@ func (c *SocketConnection) Handle() {
 			}
 
 			c.m <- msg
+			Debug("forwarded message")
 		}
 	}()
 
