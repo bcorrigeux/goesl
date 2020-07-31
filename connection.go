@@ -19,7 +19,6 @@ import (
 	"time"
 )
 
-var stopReadMessage chan bool
 
 // Main connection against ESL - Gotta add more description here
 type SocketConnection struct {
@@ -194,8 +193,6 @@ func (c *SocketConnection) ReadMessage() (*Message, error) {
 		return nil, err
 	case msg := <-c.m:
 		return msg, nil
-	case <-stopReadMessage:
-		return nil, errors.New("function exited")
 	}
 }
 
@@ -211,6 +208,7 @@ func (c *SocketConnection) Handle() {
 			msg, err := newMessage(rbuf, true)
 			Debug("received message")
 			if err != nil {
+				Debug(err)
 				c.err <- err
 				done <- true
 				break
@@ -222,7 +220,6 @@ func (c *SocketConnection) Handle() {
 	}()
 
 	<-done
-	stopReadMessage <- true
 
 	// Closing the connection now as there's nothing left to do ...
 	c.Close()
