@@ -205,16 +205,13 @@ func (c *SocketConnection) Handle() {
 	go func() {
 		for {
 			msg, err := newMessage(rbuf, true)
-			Debug("received message")
 			if err != nil {
 				Debug("error instead of messge")
 				c.err <- err
 				done <- true
 				break
 			}
-			Debug("before forward")
 			c.m <- msg
-			Debug("forwarded message")
 		}
 	}()
 
