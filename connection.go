@@ -244,7 +244,7 @@ func (c *SocketConnection) Handle() {
 				Debug("%v",msg)
 				c.m <- msg
 			case "text/disconnect-notice":
-				Debug("%v",msg)
+				Debug("disconnect event %v",msg)
 				c.disconnect <- msg
 			case "text/event-json", "text/event-plain":
 				Debug("%v",msg)
