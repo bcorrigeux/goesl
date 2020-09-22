@@ -161,6 +161,16 @@ func (c *SocketConnection) SendMsg(msg map[string]string, uuid, data string) (m 
 		b.WriteString(data)
 	}
 
+	//clear any pending messages on the channel
+	A:for{
+			select{
+			case <-c.m:
+				continue
+			default:
+				break A
+			}
+		}
+
 	// lock mutex
 	c.mtx.Lock()
 	_, err = b.WriteTo(c)
