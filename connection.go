@@ -165,6 +165,7 @@ func (c *SocketConnection) SendMsg(msg map[string]string, uuid, data string) (m 
 	A:for{
 			select{
 			case <-c.m:
+				Warning("im not sure where this message came from: %v", msg)
 				continue
 			default:
 				break A
