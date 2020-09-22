@@ -242,6 +242,7 @@ func (c *SocketConnection) Handle() {
 				c.m <- msg
 				Debug("failed to send message to channel")
 			}
+			Debug("finished sending message to channel")
 		}
 	}()
 
