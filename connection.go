@@ -197,6 +197,21 @@ func (c *SocketConnection) ReadMessage() (*Message, error) {
 	}
 }
 
+func (c *SocketConnection) GetMessageChan() chan *Message {
+	return c.m
+}
+
+func (c *SocketConnection) GetEventChan() chan *Message {
+	return c.event
+}
+func (c *SocketConnection) GetDisconnectChan() chan *Message {
+	return c.disconnect
+}
+
+func (c *SocketConnection) GetErrorChan() chan error {
+	return c.err
+}
+
 // Handle - Will handle new messages and close connection when there are no messages left to process
 func (c *SocketConnection) Handle() {
 
