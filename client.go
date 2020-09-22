@@ -37,6 +37,8 @@ func (c *Client) EstablishConnection() error {
 		Conn: conn,
 		err:  make(chan error),
 		m:    make(chan *Message),
+		disconnect: make(chan *Message),
+		event: make(chan *Message),
 	}
 
 	return nil
