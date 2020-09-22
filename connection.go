@@ -239,6 +239,7 @@ func (c *SocketConnection) Handle() {
 				Debug("%v",msg)
 				c.event <- msg
 			default:
+				c.m <- msg
 				Debug("failed to send message to channel")
 			}
 		}
