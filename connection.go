@@ -164,8 +164,8 @@ func (c *SocketConnection) SendMsg(msg map[string]string, uuid, data string) (m 
 	//clear any pending messages on the channel
 	A:for{
 			select{
-			case <-c.m:
-				Warning("im not sure where this message came from: %v", msg)
+			case m:=<-c.m:
+				Warning("im not sure where this message came from: %v\n the message sent was %v", m, msg)
 				continue
 			default:
 				break A
