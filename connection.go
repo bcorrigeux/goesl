@@ -24,6 +24,8 @@ type SocketConnection struct {
 	net.Conn
 	err chan error
 	m   chan *Message
+	disconnect chan *Message
+	event chan *Message
 	mtx sync.Mutex
 }
 
@@ -211,7 +213,16 @@ func (c *SocketConnection) Handle() {
 				done <- true
 				break
 			}
-			c.m <- msg
+			switch msg.Headers["Content-Type"]{
+			case "command/reply", "api/response":
+				c.m <- msg
+			case "text/disconnect-notice":
+				c.disconnect <- msg
+			case "text/event-json", "text/event-plain":
+				c.event <- msg
+			default:
+				Debug("failed to send message to channel")
+			}
 		}
 	}()
 
