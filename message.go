@@ -57,7 +57,7 @@ func (m *Message) Parse() error {
 
 	if cmr.Get("Content-Type") == "" {
 		Debug("Not accepting message because of empty content type. Just whatever with it ...")
-		return fmt.Errorf("Parse EOF")
+		return nil//fmt.Errorf("Parse EOF")
 	}
 
 	// Will handle content length by checking if appropriate lenght is here and if it is than
