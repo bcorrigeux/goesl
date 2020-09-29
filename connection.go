@@ -249,9 +249,9 @@ func (c *SocketConnection) Handle() {
 			case "text/event-json", "text/event-plain":
 				Debug("%v",msg)
 				c.event <- msg
-			default:
-				c.m <- msg
-				Debug("failed to send message to channel")
+			//default:
+			//	c.m <- msg
+			//	Debug("failed to send message to channel")
 			}
 			Debug("finished sending message to channel")
 		}
