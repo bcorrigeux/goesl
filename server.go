@@ -53,10 +53,10 @@ func (s *OutboundServer) Start() error {
 
 			conn := SocketConnection{
 				Conn: c,
-				err:  make(chan error),
-				m:    make(chan *Message),
-				disconnect: make(chan *Message),
-				event: make(chan *Message),
+				err:  make(chan error, 10),
+				m:    make(chan *Message, 10),
+				disconnect: make(chan *Message, 10),
+				event: make(chan *Message, 10),
 			}
 
 			Notice("Got new connection from: %s", conn.OriginatorAddr())
