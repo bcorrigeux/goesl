@@ -35,10 +35,10 @@ func (c *Client) EstablishConnection() error {
 
 	c.SocketConnection = SocketConnection{
 		Conn: conn,
-		err:  make(chan error),
-		m:    make(chan *Message),
-		disconnect: make(chan *Message),
-		event: make(chan *Message),
+		err:  make(chan error, 10),
+		m:    make(chan *Message, 10),
+		disconnect: make(chan *Message, 10),
+		event: make(chan *Message, 10),
 	}
 
 	return nil
