@@ -241,13 +241,13 @@ func (c *SocketConnection) Handle() {
 			}
 			switch msg.Headers["Content-Type"]{
 			case "command/reply", "api/response":
-				Debug("%v",msg)
+				//Debug("%v",msg)
 				c.m <- msg
 			case "text/disconnect-notice":
 				Debug("disconnect event %v",msg)
 				c.disconnect <- msg
 			case "text/event-json", "text/event-plain":
-				Debug("%v",msg)
+				//Debug("%v",msg)
 				c.event <- msg
 			default:
 				done <- true
@@ -255,7 +255,7 @@ func (c *SocketConnection) Handle() {
 			//	c.m <- msg
 			//	Debug("failed to send message to channel")
 			}
-			Debug("finished sending message to channel")
+			//Debug("finished sending message to channel")
 		}
 	}()
 
