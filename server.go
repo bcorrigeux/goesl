@@ -25,7 +25,7 @@ type OutboundServer struct {
 }
 
 // Start - Will start new outbound server
-func (s *OutboundServer) Start() error {
+func (s *OutboundServer) Start(stop chan bool error {
 	Notice("Starting Freeswitch Outbound Server @ (address: %s) ...", s.Addr)
 
 	var err error
@@ -36,8 +36,13 @@ func (s *OutboundServer) Start() error {
 		Error(ECouldNotStartListener, err)
 		return err
 	}
-
-	quit := make(chan bool)
+	
+	var quit chan bool
+	if stop == nil {
+		quit = make(chan bool)
+	} else {
+		quit = stop
+	}
 
 	go func() {
 		for {
