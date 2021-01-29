@@ -25,7 +25,7 @@ type OutboundServer struct {
 }
 
 // Start - Will start new outbound server
-func (s *OutboundServer) Start(stop chan bool error {
+func (s *OutboundServer) Start(stop chan bool) error {
 	Notice("Starting Freeswitch Outbound Server @ (address: %s) ...", s.Addr)
 
 	var err error
