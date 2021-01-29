@@ -36,7 +36,7 @@ func (s *OutboundServer) Start(stop chan bool) error {
 		Error(ECouldNotStartListener, err)
 		return err
 	}
-	
+
 	var quit chan bool
 	if stop == nil {
 		quit = make(chan bool)
@@ -57,11 +57,11 @@ func (s *OutboundServer) Start(stop chan bool) error {
 			}
 
 			conn := SocketConnection{
-				Conn: c,
-				err:  make(chan error, 10),
-				m:    make(chan *Message, 10),
+				Conn:       c,
+				err:        make(chan error, 10),
+				m:          make(chan *Message, 10),
 				disconnect: make(chan *Message, 10),
-				event: make(chan *Message, 10),
+				event:      make(chan *Message, 10),
 			}
 
 			Notice("Got new connection from: %s", conn.OriginatorAddr())
