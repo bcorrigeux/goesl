@@ -109,8 +109,7 @@ func NewOutboundServer(addr string) (*OutboundServer, error) {
 
 	go func() {
 		<-sig
-		server.Stop()
-		os.Exit(1)
+		server.Stop()	
 	}()
 
 	return &server, nil
