@@ -173,6 +173,7 @@ func (c *SocketConnection) SendMsg(msg map[string]string, uuid, data string) (m 
 		}
 
 	// lock mutex
+	fmt.Println("before lock")
 	c.mtx.Lock()
 	_, err = b.WriteTo(c)
 	if err != nil {
@@ -180,6 +181,7 @@ func (c *SocketConnection) SendMsg(msg map[string]string, uuid, data string) (m 
 		return nil, err
 	}
 	c.mtx.Unlock()
+	fmt.Println("after unlock")
 
 	select {
 	case err := <-c.err:
@@ -246,7 +248,6 @@ func (c *SocketConnection) Handle() {
 			case "text/disconnect-notice":
 				Debug("disconnect event %v",msg)
 				c.disconnect <- msg
-                                done <- true
 			case "text/event-json", "text/event-plain":
 				//Debug("%v",msg)
 				c.event <- msg
