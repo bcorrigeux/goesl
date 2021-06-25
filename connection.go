@@ -175,6 +175,7 @@ func (c *SocketConnection) SendMsg(msg map[string]string, uuid, data string) (m 
 	// lock mutex
 	fmt.Println("before lock")
 	c.mtx.Lock()
+	c.SetDeadline(time.Now().Add(10 * time.Second))
 	fmt.Println("before write")
 	_, err = b.WriteTo(c)
 	fmt.Println("after write")
