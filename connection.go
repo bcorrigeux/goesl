@@ -174,6 +174,7 @@ func (c *SocketConnection) SendMsg(msg map[string]string, uuid, data string) (m 
 
 	// lock mutex
 	c.mtx.Lock()
+        c.SetDeadline(time.Now().Add(60 * time.Second))
 	_, err = b.WriteTo(c)
 	if err != nil {
 		c.mtx.Unlock()
