@@ -174,7 +174,6 @@ func (c *SocketConnection) SendMsg(msg map[string]string, uuid, data string) (m 
 
 	// lock mutex
 	c.mtx.Lock()
-        c.SetDeadline(time.Now().Add(60 * time.Second))
 	_, err = b.WriteTo(c)
 	if err != nil {
 		c.mtx.Unlock()
@@ -247,6 +246,7 @@ func (c *SocketConnection) Handle() {
 			case "text/disconnect-notice":
 				Debug("disconnect event %v",msg)
 				c.disconnect <- msg
+                                done <- true
 			case "text/event-json", "text/event-plain":
 				//Debug("%v",msg)
 				c.event <- msg
