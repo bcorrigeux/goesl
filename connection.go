@@ -175,9 +175,12 @@ func (c *SocketConnection) SendMsg(msg map[string]string, uuid, data string) (m 
 	// lock mutex
 	fmt.Println("before lock")
 	c.mtx.Lock()
+	fmt.Println("before write")
 	_, err = b.WriteTo(c)
+	fmt.Println("after write")
 	if err != nil {
 		c.mtx.Unlock()
+		fmt.Println("error: ", err)
 		return nil, err
 	}
 	c.mtx.Unlock()
